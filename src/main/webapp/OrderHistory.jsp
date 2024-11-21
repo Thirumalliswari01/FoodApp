@@ -50,8 +50,16 @@
 </head>
 <body>
     <% 
-        List<OrderHistory> list = (List<OrderHistory>) session.getAttribute("orderhistorylist");
-        if (list != null) {
+        // Retrieve the order history list from the session
+        List<OrderHistory> list = (List<OrderHistory>) request.getAttribute("orderhistorylist");
+
+        // Check if no orders were found
+        String message = (String) request.getAttribute("orderHistoryMessage");
+        if (message != null) {
+            out.println("<h2>" + message + "</h2>");
+        }
+
+        if (list != null && !list.isEmpty()) {
     %>
     <h2>Check Your Orders Below</h2>
     <table>
@@ -73,6 +81,7 @@
             <td><%= e.getStatus() %></td>
             <td>
                 <form action="orderItemList" method="post">
+
                     <input type="hidden" name="orderid" value="<%= e.getOrderId() %>">
                     <input type="submit" value="Submit">
                 </form>

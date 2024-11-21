@@ -11,8 +11,7 @@
             --accent-color: #4B4B4B;
             --bg-color: #F0F4F4;
             --text-color: #FFFFFF;
-            --p-text-color: #77DD77;
-            --link-border-color: #000000;
+            --p-text-color: #77DD77;           --link-border-color: #000000;
         }
 
         body {

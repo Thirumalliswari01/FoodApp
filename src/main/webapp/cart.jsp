@@ -190,6 +190,7 @@
                         <p>Price: ₹<%= String.format("%.2f", item.getPrice()) %></p>
                         
                         <form action="cart" method="post">
+
                             <input type="hidden" name="itemId" value="<%= item.getItemId() %>">
                             <label>Quantity: 
                                 <input type="number" name="quantity" value="<%= item.getQuantity() %>" min="1">

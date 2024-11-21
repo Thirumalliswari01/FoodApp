@@ -13,34 +13,40 @@ import com.tapfoods.model.OrderItem;
 
 @WebServlet("/orderItemList")
 public class OrderItemListServlet extends HttpServlet {
+
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-
-        	int orderId = Integer.parseInt(req.getParameter("orderid")); 
+            // Retrieve the order ID from the request parameter
+            int orderId = Integer.parseInt(req.getParameter("orderid")); 
             System.out.println("Order ID received: " + orderId); 
-            
 
+            // Instantiate the DAO to fetch order items
             OrderItemDAO orderItemDAO = new OrderItemDAOImpl();
             List<OrderItem> orderItemList = orderItemDAO.fetchOrdersItems(orderId);
             System.out.println("Fetched Order Items: " + orderItemList);
 
-
+            // Check if order items are found and set them as request attributes
             if (orderItemList != null && !orderItemList.isEmpty()) {
                 req.setAttribute("orderitemlist", orderItemList);
             } else {
                 req.setAttribute("message", "No items found for this order.");
             }
 
-
-            req.getRequestDispatcher("OrderhistoryTime.jsp").include(req, resp);
+            // Forward the request to the JSP page (use forward instead of include for redirection)
+            req.getRequestDispatcher("/OrderhistoryTime.jsp").forward(req, resp); // Forward instead of include
 
         } catch (NumberFormatException e) {
+            // Handle invalid order ID format
             System.err.println("Invalid order ID format: " + e.getMessage());
-            resp.sendRedirect("errorPage.jsp"); 
+            req.setAttribute("errorMessage", "Invalid order ID format."); // Set error message for the JSP
+            req.getRequestDispatcher("/errorPage.jsp").forward(req, resp); // Forward to error page
+
         } catch (Exception e) {
+            // Handle general errors
             System.err.println("Error retrieving order items: " + e.getMessage());
-            resp.sendRedirect("errorPage.jsp");
+            req.setAttribute("errorMessage", "Error retrieving order items."); // Set error message for the JSP
+            req.getRequestDispatcher("/errorPage.jsp").forward(req, resp); // Forward to error page
         }
     }
 }

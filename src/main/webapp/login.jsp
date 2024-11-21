@@ -168,6 +168,13 @@
         .signin-link a:hover {
             color: #ff6b6b;
         }
+
+        .error-message {
+            color: #ff4b4b;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -182,7 +189,13 @@
         </div>
         <div class="right-side">
             <div class="login-form">
-                <h2 class="title">Login In To Your Account</h2>
+                <h2 class="title">Login To Your Account</h2>
+
+                <!-- Display error message if login fails -->
+                <c:if test="${not empty errorMessage}">
+                    <div class="error-message">${errorMessage}</div>
+                </c:if>
+
                 <form action="login" method="post">
                     <div class="form-group">
                         <table>
@@ -199,7 +212,7 @@
                             <tr>
                                 <td style="text-align: right; padding-right: 10px;">Password</td>
                                 <td>
-                                    <input type="password" name="password" placeholder="password" required>
+                                    <input type="password" name="password" placeholder="Password" required>
                                 </td>
                             </tr>
                         </table>
