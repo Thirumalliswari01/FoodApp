@@ -39,7 +39,7 @@ Foodie'sFantasy is an online food delivery app that offers a seamless food order
 4. *Deploy the project 🚀:*
 
    -  Deploy the app to an Apache Tomcat server.
-   -  Access the app via http://localhost:8080/FoodiesFantasy in your web browser.
+   -  Access the app via http://localhost:8080/TapFoods/welcomePage.jsp  in your web browser.
 
 
 
